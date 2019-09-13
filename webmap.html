@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Web Mapping Calcite Demo - Trent Armitage</title>
+    <!-- Font Awesome Fonts-->
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+
+    
+        
+
+    <!-- Calcite Maps Bootstrap -->
+    <link rel="stylesheet" href="https://esri.github.io/calcite-maps/dist/css/calcite-maps-bootstrap.min-v0.10.css">  
+    <!-- Calcite Maps -->
+    <link rel="stylesheet" href="https://esri.github.io/calcite-maps/dist/css/calcite-maps-arcgis-4.x.min-v0.10.css">
+    <!-- ArcGIS Javascript4 -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/themes/light/main.css">
+
+    <style>
+            html,
+            body {
+              margin: 0;
+              padding: 0;
+              height: 100%;
+              width: 100%;
+            }
+          </style>
+    
+</head>  
+
+<body class="calcite-maps calcite-nav-top"> 
+    
+    <!-- Navbar -->
+
+  <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-light calcite-bg-custom" 
+            style="background-color: rgb(86, 165, 216);">
+        <!-- Menu -->
+        <div class="dropdown calcite-dropdown calcite-text-dark calcite-bg-light" role="presentation">
+          <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0">
+            <div class="calcite-dropdown-toggle">
+              <span class="sr-only">Toggle dropdown menu</span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="nav-item" role="presentation"><a class="nav-link active" href="index.html">Home</a></li>
+            <li class="nav-item" role="presentation"><a class="nav-link" href="projects.html">Projects</a></li>
+            <li class="nav-item" role="presentation"><a class="nav-link" href="resume.html">Resume</a></li>                  
+            <li class="nav-item" role="presentation"><a class="nav-link" href="https://www.linkedin.com/in/trent-armitage-79927962"><i class="fa fa-linkedin-square" style="font-size: 35px;color: rgb(19,113,207);"></i></a></li>
+            <li><a role="menuitem" tabindex="0" data-target="#panelInfo" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
+            <li><a role="menuitem" tabindex="0" href="#" id="calciteToggleNavbar" aria-haspopup="true"><span class="glyphicon glyphicon-fullscreen"></span> Full Map</a></li>            
+          </ul>
+        </div>
+        <!-- Title -->
+        <div class="calcite-title calcite-overflow-hidden">
+          <span class="calcite-title-main">Trent</span>
+          <span class="calcite-title-divider hidden-xs"></span>
+          <span class="calcite-title-sub hidden-xs">Using Calcite Maps</span>
+        </div>
+        <!-- Nav -->
+        <ul class="nav navbar-nav calcite-nav">
+          <li>
+            <div class="calcite-navbar-search calcite-search-expander">
+              <div id="searchWidgetDiv"></div>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    
+      <!--/.calcite-navbar -->
+        <div class="calcite-map calcite-map-absolute">
+                <div id="mapViewDiv"></div>
+        </div>
+
+  <!-- Panels -->
+
+  <div class="calcite-panels calcite-panels-right calcite-text-light calcite-bg-custom panel-group" style="background-color: rgb(86, 165, 216);">
+
+        <!-- Panel - Basemaps -->
+    
+        <div id="panelInfo" class="panel collapse in">
+          <div id="headingInfo" class="panel-heading" role="tab">
+            <div class="panel-title">
+              <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInfo"  aria-expanded="true" aria-controls="collapseInfo"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label">About</span></a> 
+              <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelInfo"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+            </div>
+          </div>
+          <div id="collapseInfo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInfo">
+            <div class="panel-body">
+              <p>Hope you enjoy!</p>
+            </div>
+         </div>
+        </div>
+      </div>
+
+
+  <!-- /.calcite-panels -->
+
+  <script type="text/javascript">
+    var dojoConfig = {
+      packages: [{
+        name: "bootstrap",
+        location: "https://esri.github.io/calcite-maps/dist/vendor/dojo-bootstrap"
+      },
+      {
+        name: "calcite-maps",
+        location: "https://esri.github.io/calcite-maps/dist/js/dojo"
+      }]
+    };
+  </script>
+
+  <!-- ArcGIS JS 4 -->
+  <script src="https://js.arcgis.com/4.10/"></script>
+
+  <script>
+    
+    require([
+      // ArcGIS
+      "esri/Map",
+      "esri/views/MapView",
+
+      // Widgets
+      "esri/widgets/Home",
+      "esri/widgets/Zoom",
+      "esri/widgets/Compass",
+      "esri/widgets/Search",
+      "esri/widgets/BasemapToggle",
+      "esri/widgets/ScaleBar",
+      "esri/widgets/Attribution",
+
+      // Bootstrap
+      "bootstrap/Collapse",
+      "bootstrap/Dropdown",
+
+      // Calcite Maps
+      "calcite-maps/calcitemaps-v0.10",
+      // Calcite Maps ArcGIS Support
+      "calcite-maps/calcitemaps-arcgis-support-v0.10",
+
+      "dojo/domReady!"
+    ], function(Map, MapView, Home, Zoom, Compass, Search, Legend, BasemapToggle, ScaleBar, Attribution,Collapse, Dropdown, CalciteMaps, CalciteMapArcGISSupport) {
+
+      // Map
+      var map = new Map({
+      basemap: "topo-vector"
+    });
+      
+      // View
+      var mapView = new MapView({
+        container: "mapViewDiv",
+        map: map,
+        center: [-96.732,43.547],
+        zoom: 9,
+        padding: {
+          top: 50,
+          bottom: 0
+        },
+        ui: {components: []}
+      });
+
+      mapView.when(function(){
+        CalciteMapArcGISSupport.setPopupPanelSync(mapView);
+      });
+
+      var coordsWidget = document.createElement("div");
+    coordsWidget.id = "coordsWidget";
+    coordsWidget.className = "esri-widget esri-component";
+    coordsWidget.style.padding = "7px 15px 5px";
+    mapView.ui.add(coordsWidget, "bottom-right");
+
+    function showCoordinates(pt) {
+      var coords = "Lat/Lon " + pt.latitude.toFixed(3) + " " + pt.longitude.toFixed(3) + 
+          " | Scale 1:" + Math.round(mapView.scale * 1) / 1 +
+          " | Zoom " + mapView.zoom;
+      coordsWidget.innerHTML = coords;
+    }
+    
+    mapView.watch(["stationary"], function() {
+      showCoordinates(mapView.center);
+    });
+
+    mapView.on(["pointer-down","pointer-move"], function(evt) {
+      showCoordinates(mapView.toMap({ x: evt.x, y: evt.y }));
+    });
+
+      var home = new Home({
+        view: mapView
+      });
+      mapView.ui.add(home, "top-left");
+
+      var zoom = new Zoom({
+        view: mapView
+      });
+      mapView.ui.add(zoom, "top-left");
+
+      var compass = new Compass({
+        view: mapView
+      });
+      mapView.ui.add(compass, "top-left");
+      
+      var basemapToggle = new BasemapToggle({
+        view: mapView,
+        secondBasemap: "satellite"
+      });
+      mapView.ui.add(basemapToggle, "bottom-right");          
+      
+      var scaleBar = new ScaleBar({
+        view: mapView
+      });
+      mapView.ui.add(scaleBar, "bottom-left");  
+    });
+  </script>
+    
+    </body>
+    
+    </html>
