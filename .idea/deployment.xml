@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="hostingersite" uploadOnCheckin="05b82fb1-d039-45db-bc7c-98893afaba2b">
+    <serverData>
+      <paths name="hostingersite">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="hostingersite" />
+  </component>
+</project>
