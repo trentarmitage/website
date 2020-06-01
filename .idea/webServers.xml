@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="05b82fb1-d039-45db-bc7c-98893afaba2b" name="hostingersite" url="http://ftp.trentarmitage.com">
-        <fileTransfer rootFolder="/home/u818102373/domains/trentarmitage.com/public_html " host="ftp.trentarmitage.com" port="21">
+        <fileTransfer rootFolder="/domains/trentarmitage.com/public_html" host="ftp.trentarmitage.com" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
